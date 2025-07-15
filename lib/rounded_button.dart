@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
-// which is component and reuse
-class RoundButton extends StatelessWidget {
-  final String title;
 
+class CustomButton extends StatelessWidget {
+  final String title;
   final VoidCallback onTap;
-  const  RoundButton({Key? key,
+
+  const CustomButton({
+    Key? key,
     required this.title,
     required this.onTap,
-
-  }):super(key:key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
+      width: 230,
+      height: 70,
       child: ElevatedButton(
+        onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.indigo[900],
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero, // <- Rectangle shape
+          backgroundColor: const Color(0x0B1146), // Dark blue
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onPressed: onTap,
         child: Text(
           title,
-          style: const TextStyle(fontSize: 16, color: Colors.white),
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+           fontFamily: 'Monda',
+           // fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+          ),
         ),
       ),
     );

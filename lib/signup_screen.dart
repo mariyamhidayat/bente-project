@@ -2,6 +2,7 @@ import 'package:bente_project/rounded_button.dart';
 import 'package:bente_project/varfication_screen.dart';
 import 'package:bente_project/sigin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -9,40 +10,13 @@ class SignupScreen extends StatefulWidget {
   State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-  late Animation<double> _scaleAnimation;
+class _SignupScreenState extends State<SignupScreen>  {
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 2),
-    );
 
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
 
-    _slideAnimation = Tween<Offset>(begin: Offset(0, 0.5), end: Offset.zero).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
 
-    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
-    );
 
-    _controller.forward(); // Start animations
-  }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
 
   bool _obscurePassword = true;
@@ -50,37 +24,41 @@ class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderS
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF0A0E31), Color(0xFF12205F)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+        // 🔙 Background Image (covers full screen)
+        Image.asset(
+        'image/Rectangle 1.svg', // your background image
+        fit: BoxFit.cover,
+      ), SingleChildScrollView(
+    child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 60.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+    // 🔝 SIGN IN image at the top
+    SizedBox(height: 40,),
+
+           Image.asset(
+            'image/SIGN UP-1.svg',
+            width: 200, // adjust as needed
+            fit: BoxFit.contain,
           ),
-        ),
-        child: ListView(
-          children: [
-            const SizedBox(height: 80),
-           SlideTransition(
-           position: _slideAnimation,
-           child: FadeTransition(
-           opacity: _fadeAnimation,
-          child: Text(
-              'SIGN UP',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),)),
-            const SizedBox(height: 40),
+             SizedBox(height: 80),
 
             // Username
-            const TextField(
+             TextField(
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.person_outline, color: Colors.white),
+                prefixIcon:  Padding(
+                  padding:  EdgeInsets.all(12.0),  // adjust padding to center image nicely
+                  child: Image.asset(
+                    'image/username.svg',  // your image path here
+                    width: 24,
+                    height: 24,
+                    color: Colors.white, // optional: tint image white if it's a grayscale PNG
+                  ),
+                ),
                 hintText: 'Username',
                 hintStyle: TextStyle(color: Colors.white70),
                 enabledBorder: UnderlineInputBorder(
@@ -92,9 +70,17 @@ class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderS
             const SizedBox(height: 16),
 
             // Email
-            const TextField(
+             TextField(
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.email_outlined, color: Colors.white),
+                prefixIcon:  Padding(
+                  padding:  EdgeInsets.all(12.0),  // adjust padding to center image nicely
+                  child: Image.asset(
+                    'image/Mail.png',  // your image path here
+                    width: 24,
+                    height: 24,
+                    color: Colors.white, // optional: tint image white if it's a grayscale PNG
+                  ),
+                ),
                 hintText: 'Email',
                 hintStyle: TextStyle(color: Colors.white70),
                 enabledBorder: UnderlineInputBorder(
@@ -106,9 +92,17 @@ class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderS
             const SizedBox(height: 16),
 
             // Date of Birth
-            const TextField(
+             TextField(
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.calendar_today_outlined, color: Colors.white),
+                prefixIcon: Padding(
+                  padding:  EdgeInsets.all(12.0),  // adjust padding to center image nicely
+                  child: Image.asset(
+                    'image/Calendar.png',  // your image path here
+                    width: 24,
+                    height: 24,
+                    color: Colors.white, // optional: tint image white if it's a grayscale PNG
+                  ),
+                ),
                 hintText: 'Date of Birth',
                 hintStyle: TextStyle(color: Colors.white70),
                 enabledBorder: UnderlineInputBorder(
@@ -123,7 +117,15 @@ class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderS
             TextField(
               obscureText: _obscurePassword,
               decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
+                prefixIcon: Padding(
+                  padding:  EdgeInsets.all(12.0),  // adjust padding to center image nicely
+                  child: Image.asset(
+                    'image/Lock.png',  // your image path here
+                    width: 24,
+                    height: 24,
+                    color: Colors.white, // optional: tint image white if it's a grayscale PNG
+                  ),
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
                     _obscurePassword ? Icons.visibility : Icons.visibility_off,
@@ -149,7 +151,15 @@ class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderS
             TextField(
               obscureText: _obscureConfirmPassword,
               decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
+                prefixIcon: Padding(
+                  padding:  EdgeInsets.all(12.0),  // adjust padding to center image nicely
+                  child: Image.asset(
+                    'image/Lock.png',  // your image path here
+                    width: 24,
+                    height: 24,
+                    color: Colors.white, // optional: tint image white if it's a grayscale PNG
+                  ),
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
                     _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
@@ -173,8 +183,9 @@ class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderS
 
             // Sign Up Button
             Center(
-              child: RoundButton(
+              child: CustomButton(
                 title: 'SIGN UP',
+
                 onTap: () {
                  Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationScreen()));
 
@@ -196,7 +207,7 @@ class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderS
             Center(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SigInScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
 
 
                 },
@@ -209,10 +220,22 @@ class _SignupScreenState extends State<SignupScreen>  with SingleTickerProviderS
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
+
+
+         ],
+    )
+    )
+        )
+    ],
+
+
+              )
+
     );
-  }
+
+
+
+
+
+      }
 }
